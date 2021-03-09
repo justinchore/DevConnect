@@ -9,6 +9,7 @@ import setAuthToken from './utils/setAuthToken';
 import Dashboard from './components/dashboard/Dashboard.js';
 import PrivateRoute from './components/routing/PrivateRoute';
 import CreateProfile from './components/profile-forms/CreateProfile';
+import EditProfile from './components/profile-forms/EditProfile';
 
 //Redux
 import { Provider } from 'react-redux'; //connects react and redux
@@ -17,34 +18,42 @@ import { loadUser } from './actions/auth';
 
 import './App.css';
 
-
-
-const App = () => { 
+const App = () => {
   useEffect(() => {
-    if(localStorage.token) {
-        console.log('Checking token')    
-        setAuthToken(localStorage.token);
+    if (localStorage.token) {
+      console.log('Checking token');
+      setAuthToken(localStorage.token);
     }
     store.dispatch(loadUser());
   }, []); //only runs once with brackets -> without its a loop
-  return(
-     <Provider store={store}>
-        <Router>
+  return (
+    <Provider store={store}>
+      <Router>
         <Fragment>
-          <Navbar/>
-          <Route exact path='/' component={Landing}/>
-          <section className="container">
+          <Navbar />
+          <Route exact path='/' component={Landing} />
+          <section className='container'>
             <Alert />
             <Switch>
-              <Route exact path="/register" component={Register}/>
-              <Route exact path="/login" component={Login}/>
-              <PrivateRoute exact path="/dashboard" component={Dashboard}/>
-              <PrivateRoute exact path="/create-profile" component={CreateProfile}/>
+              <Route exact path='/register' component={Register} />
+              <Route exact path='/login' component={Login} />
+              <PrivateRoute exact path='/dashboard' component={Dashboard} />
+              <PrivateRoute
+                exact
+                path='/create-profile'
+                component={CreateProfile}
+              />
+              <PrivateRoute
+                exact
+                path='/edit-profile'
+                component={EditProfile}
+              />
             </Switch>
           </section>
         </Fragment>
-        </Router>
-     </Provider>
-  )}
+      </Router>
+    </Provider>
+  );
+};
 
 export default App;
