@@ -16,13 +16,14 @@ import { loadUser } from './actions/auth';
 
 import './App.css';
 
-if(localStorage.token) {    
-        setAuthToken(localStorage.token);
-}
+
 
 const App = () => { 
   useEffect(() => {
-    console.log('running')
+    if(localStorage.token) {
+        console.log('Checking token')    
+        setAuthToken(localStorage.token);
+    }
     store.dispatch(loadUser());
   }, []); //only runs once with brackets -> without its a loop
   return(
