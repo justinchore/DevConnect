@@ -7,6 +7,7 @@ const config = require('config');
 
 const Profile = require('../../models/Profile');
 const User = require('../../models/User');
+const Post = require('../../models/Post');
 
 // @route  GET api/profile/me
 // @desc   Get current users profile
@@ -146,6 +147,8 @@ router.post(
 // @access Private
 router.delete('/', auth, async (req, res) => {
   try {
+    // Remove user posts
+    await Post.deleteMany({ user: req.user });
     await Profile.findOneAndRemove({ user: req.user.id });
     await User.findOneAndRemove({ _id: req.user.id });
 
@@ -222,7 +225,9 @@ router.delete('/experience/:exp_id', auth, async (req, res) => {
       .map(item => item.id)
       .indexOf(req.params.exp_id);
 
-    profile.experience.slice(removeIdx, 1);
+    console.log(removeIdx);
+    profile.experience.splice(removeIdx, 1);
+    console.log(profile.experience);
 
     await profile.save();
 
