@@ -7,6 +7,8 @@ import {
   DELETE_POST,
   ADD_POST,
   GET_POST,
+  ADD_COMMENT,
+  REMOVE_COMMENT,
 } from './types';
 
 //Get Posts
@@ -113,6 +115,53 @@ export const getPost = postId => async dispatch => {
     dispatch({
       type: GET_POST,
       payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: POST_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+// Add Comment
+export const addComment = (postId, formData) => async dispatch => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+  try {
+    const res = await axios.post(
+      `/api/posts/comments/${postId}`,
+      formData,
+      config
+    );
+
+    dispatch({
+      type: ADD_COMMENT,
+      payload: res.data, //array of comments
+    });
+
+    dispatch(setAlert('Comment Added', 'success'));
+  } catch (err) {
+    dispatch({
+      type: POST_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+// Delete Comment
+export const deleteComment = (postId, commentId) => async dispatch => {
+  try {
+    const res = await axios.delete(
+      `/api/posts/comments/${postId}/${commentId}`
+    );
+
+    dispatch({
+      type: REMOVE_COMMENT,
+      payload: commentId, //so we know which one to delete in the state
     });
   } catch (err) {
     dispatch({
