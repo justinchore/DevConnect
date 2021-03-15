@@ -9,7 +9,7 @@ import { getPosts } from '../../actions/post';
 const Posts = ({ getPosts, authLoading, post: { posts, loading } }) => {
   useEffect(() => {
     getPosts();
-  }, [authLoading]);
+  }, [authLoading, getPosts]);
 
   return loading ? (
     <Spinner />
