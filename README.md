@@ -9,9 +9,9 @@ DevConnect is a social media platform for developers, allowing users to create a
 * React, Redux, HTML, CSS 
 ## Knowledge Acquired
 Below is a list of some useful tricks/processes I picked up during the website's creation.
-### Backend: Implemntation of Middleware into Routes
+### Backend: Implemntation of Middleware into Protected Routes
 Instead of manually checking for a valid token at every express route that requires a user to be logged in, implenmenting an authorization middleware to insert at every "private" route definition was done. This allowed for much modular process while constructing API endpoints. 
-```
+```javascript
 const jwt = require('jsonwebtoken');
 const config = require('config');
 
@@ -36,7 +36,7 @@ module.exports = function(req, res, next) { //middleware arguments
 }
 ```
 Auth middleware in use:
-```
+```javascript
 // @route  GET api/auth
 // @desc   Validate Token in header
 // @access Protected
