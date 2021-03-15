@@ -58,3 +58,23 @@ When running a GET request to fetch a user's profile, the user's id in the param
     }).populate('user', ['name', 'avatar']);
 ```
 This process of retrieving additional data by reference will be invaluable when making calls from React-Redux.
+
+### Backend: ObjectId fields in Models are not strings. 
+### Frontend: Creating an "Alert" Slice of State
+Because actions can be called from anywhere, having an alert state and a "setAlert()" action allows the user to know if their process went through. The alert state is an array that will keep collecting messages. Then the errors are rendered in the component. To get rid of the errors after a specified amount of time, setTimeout can be used to dispatch an action to remove an alert. 
+Set Alert action: 
+```javascript
+case SET_ALERT: //we need to return changes to the state
+           return [...state, payload]; //state is immutable, so include any state present
+```
+Remove Alert action:
+```javascript
+case REMOVE_ALERT:
+           return state.filter(alert => alert.id !== payload); //we control payload in dispatch
+```
+Incorporating the REMOVE_ALERT action in the SET_ALERT action: (timeout is specified in milliseconds as an argument in function definition)
+```javascript
+setTimeout(() => dispatch({ type: REMOVE_ALERT, payload: id}), timeout)
+```
+
+
