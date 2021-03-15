@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { addEducation } from '../../actions/profile';
 
 const AddEducation = ({ addEducation, history }) => {
-  console.log('hi');
   const [formData, setFormData] = useState({
     school: '',
     degree: '',

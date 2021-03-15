@@ -14,7 +14,6 @@ import {
 // Get current users profile
 export const getCurrentProfile = () => async dispatch => {
   try {
-    console.log('In get profile action');
     axios.defaults.headers.common['x-auth-token'] = localStorage.getItem(
       'token'
     );
@@ -202,7 +201,6 @@ export const addEducation = (formData, history) => async dispatch => {
 export const deleteExperience = id => async dispatch => {
   try {
     const res = await axios.delete(`/api/profile/experience/${id}`);
-    console.log(res);
     dispatch({
       type: UPDATE_PROFILE,
       payload: res.data,
@@ -221,7 +219,6 @@ export const deleteExperience = id => async dispatch => {
 export const deleteEducation = id => async dispatch => {
   try {
     const res = await axios.delete(`/api/profile/education/${id}`);
-    console.log(id);
     dispatch({
       type: UPDATE_PROFILE,
       payload: res.data,

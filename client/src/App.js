@@ -27,7 +27,6 @@ import './App.css';
 const App = () => {
   useEffect(() => {
     if (localStorage.token) {
-      console.log('Checking token');
       setAuthToken(localStorage.token);
     }
     store.dispatch(loadUser());

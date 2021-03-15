@@ -36,7 +36,6 @@ const Profile = ({
                 Edit Profile
               </Link>
             )}
-          {console.log(profile.experience)}
           <div className='profile-grid my-1'>
             <ProfileTop profile={profile} />
             <ProfileAbout profile={profile} />

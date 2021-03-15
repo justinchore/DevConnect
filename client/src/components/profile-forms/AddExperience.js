@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { addExperience } from '../../actions/profile';
 
 const AddExperience = ({ addExperience, history }) => {
-  console.log('hi');
   const [formData, setFormData] = useState({
     company: '',
     title: '',
