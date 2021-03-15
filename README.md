@@ -50,3 +50,11 @@ router.get('/', auth, async (req, res) => {
     }
 });
 ```
+### Backend: Specifying fields Fetched in Queries
+When running a GET request to fetch a user's profile, the user's id in the params of the request is used to query the database. That id is connected by reference to the "user" field in the profile. To get the name and avatar for the user along with the profile: 
+```javascript
+  const profile = await Profile.findOne({
+      user: req.params.user_id,
+    }).populate('user', ['name', 'avatar']);
+```
+This process of retrieving additional data by reference will be invaluable when making calls from React-Redux.
