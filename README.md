@@ -76,5 +76,81 @@ Incorporating the REMOVE_ALERT action in the SET_ALERT action: (timeout is speci
 ```javascript
 setTimeout(() => dispatch({ type: REMOVE_ALERT, payload: id}), timeout)
 ```
+### Frontend: Incorporating a Spinner Component
+The rendering of this component will be dependent on the "loading" key present in each part of the state. If "true" (default), that means that the data is being fetched, so the spinner is rendered on to the page. If "false" the data fetching process is done. 
+Spinner.js:
+```javascript
+import React, { Fragment } from 'react';
+import spinner from './spinner.gif';
+
+export default function foo() {
+  return (
+    <Fragment>
+      <img
+        src={spinner}
+        style={{ width: '200px', margin: 'auto', display: 'block' }}
+        alt='Loading...'
+      />
+    </Fragment>
+  );
+}
+```
+Incorporating the spinner component to the user dashboard page. The spinner gif is rendered while the data is being loaded.
+```javascript
+const Dashboard = ({
+  getCurrentProfile,
+  deleteAccount,
+  auth: { user },
+  profile: { profile, loading },
+}) => {
+  useEffect(() => {
+    getCurrentProfile();
+  }, [getCurrentProfile]);
+
+  return loading && profile === null ? (
+    <Spinner />
+  ) : (
+    <Fragment>
+      <h1 className='large text-primary'>Dashboard</h1>
+      <p className='lead'>
+        <i className='fas fa-user'></i> Welcome {user && user.name}
+      </p>
+```
+###Frontend: Dynamically Disabled/Enabled Field Linked to Separate Field Input
+When the user is adding experience, the "to" date field should be disabled when the "current" box is checked. Creating a useState hook that toggles the "to" field is used. 
+```javascript
+const [toDateDisabled, toggleDisabled] = useState(false);
+```
+Setting an onChange to the "current" checkbox which sets formData  as well as toDateDisabled:
+```javascript
+<div className='form-group'>
+          <p>
+            <input
+              type='checkbox'
+              name='current'
+              checked={current}
+              value={current}
+              onChange={e => {
+                setFormData({ ...formData, current: !current });
+                toggleDisabled(!toDateDisabled);
+              }}
+            />
+            {''} Current Job
+          </p>
+        </div>
+```
+"to" field:
+```javascript
+<div className='form-group'>
+          <h4>To Date</h4>
+          <input
+            type='date'
+            name='to'
+            value={to}
+            onChange={e => onChange(e)}
+            disabled={toDateDisabled ? 'disabled' : ''}
+          />
+        </div>
+```
 
 
