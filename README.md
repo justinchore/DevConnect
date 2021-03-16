@@ -116,7 +116,7 @@ const Dashboard = ({
         <i className='fas fa-user'></i> Welcome {user && user.name}
       </p>
 ```
-###Frontend: Dynamically Disabled/Enabled Field Linked to Separate Field Input
+### Frontend: Dynamically Disabled/Enabled Field Linked to Separate Field Input
 When the user is adding experience, the "to" date field should be disabled when the "current" box is checked. Creating a useState hook that toggles the "to" field is used. 
 ```javascript
 const [toDateDisabled, toggleDisabled] = useState(false);
