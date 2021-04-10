@@ -5,7 +5,7 @@ import { setAlert } from '../../actions/alert';
 import { register, login } from '../../actions/auth';
 import PropTypes from 'prop-types';
 
-const Register = ({ setAlert, register, isAuthenticated }) => {
+const Register = ({ setAlert, register, isAuthenticated, login }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -93,7 +93,9 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
         Already have an account? <Link to='/login'>Sign In</Link>
       </p>
       <p className='my-1'>
-        <button onClick={sampleLogin}>Sample User Sign In</button>
+        <button className='btn btn-primary' onClick={sampleLogin}>
+          Sample User Sign In
+        </button>
       </p>
     </Fragment>
   );
@@ -102,6 +104,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
 Register.propTypes = {
   setAlert: PropTypes.func.isRequired,
   register: PropTypes.func.isRequired, //ptfr
+  login: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool,
 };
 
@@ -109,4 +112,6 @@ const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated,
 });
 
-export default connect(mapStateToProps, { setAlert, register })(Register);
+export default connect(mapStateToProps, { setAlert, register, login })(
+  Register
+);
